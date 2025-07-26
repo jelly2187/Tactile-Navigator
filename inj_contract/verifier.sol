@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+//合约id：0x43bf3e7fd5abf5f9f354e0f4ba7bba3cb5cdaadef8c7616963445f7d422ff8b5
 pragma solidity ^0.8.0;
 
 contract BlindAssistanceNetwork {
