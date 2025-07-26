@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小Q导航</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Gochi+Hand&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Gochi Hand', cursive;
+            background-color: #f9f7f0;
+        }
+        
+        .sketch-border {
+            border: 3px solid #333;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+        }
+        
+        .dotted-bg {
+            background-image: radial-gradient(#ddd 1px, transparent 1px);
+            background-size: 15px 15px;
+        }
+        
+        .hand-drawn-btn {
+            border: 2px solid #333;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        
+        .hand-drawn-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+        }
+        
+        .sketch-line {
+            position: relative;
+        }
+        
+        .sketch-line:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-image: linear-gradient(to right, #333 0%, #333 75%, transparent 75%, transparent 100%);
+            background-size: 8px 2px;
+            bottom: -5px;
+        }
+    </style>
+</head>
+<body class="bg-yellow-50">
+    <!-- 主界面 -->
+    <div class="max-w-md mx-auto min-h-screen p-4">
+        <!-- 顶部导航栏 -->
+        <div class="flex items-center mb-6">
+            <h1 class="text-4xl font-bold sketch-line" style="color: #5e35b1;">小Q导航</h1>
+            <div class="ml-auto">
+                <div class="w-10 h-10 rounded-full bg-purple-200 flex items-center justify-center sketch-border">
+                    <span class="material-icons" style="color: #5e35b1;">person</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 地图预览 -->
+        <div class="relative mb-6">
+            <div class="w-full h-48 bg-white sketch-border flex items-center justify-center">
+                <div class="text-center">
+                    <span class="material-icons text-4xl" style="color: #5e35b1;">map</span>
+                    <p class="mt-2">当前地图区域</p>
+                </div>
+            </div>
+            <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-red-500 rounded-full flex items-center justify-center sketch-border">
+                <span class="material-icons text-white">warning</span>
+            </div>
+        </div>
+
+        <!-- 待验证路障列表 -->
+        <h2 class="text-2xl font-bold mb-4 sketch-line" style="color: #5e35b1;">待验证路障</h2>
+        
+        <!-- 路障卡片1 -->
+        <div class="bg-white p-4 mb-4 sketch-border relative">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center sketch-border">
+                <span class="text-sm">3</span>
+            </div>
+            <div class="h-32 bg-gray-200 mb-3 sketch-border flex items-center justify-center">
+                <span class="material-icons text-4xl">image</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <span class="material-icons mr-2" style="color: #5e35b1;">location_on</span>
+                <span>116.404, 39.915</span>
+            </div>
+            <div class="flex items-center mb-3">
+                <span class="material-icons mr-2" style="color: #5e35b1;">access_time</span>
+                <span>10:30 上报</span>
+            </div>
+            <button class="w-full py-2 bg-purple-200 hand-drawn-btn flex items-center justify-center">
+                <span class="material-icons mr-1">check_circle</span>
+                验证此路障
+            </button>
+        </div>
+        
+        <!-- 路障卡片2 -->
+        <div class="bg-white p-4 mb-4 sketch-border relative">
+            <div class="absolute -top-3 -right-3 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center sketch-border">
+                <span class="text-sm">5</span>
+            </div>
+            <div class="h-32 bg-gray-200 mb-3 sketch-border flex items-center justify-center">
+                <span class="material-icons text-4xl">image</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <span class="material-icons mr-2" style="color: #5e35b1;">location_on</span>
+                <span>116.408, 39.918</span>
+            </div>
+            <div class="flex items-center mb-3">
+                <span class="material-icons mr-2" style="color: #5e35b1;">access_time</span>
+                <span>09:15 上报</span>
+            </div>
+            <button class="w-full py-2 bg-purple-200 hand-drawn-btn flex items-center justify-center">
+                <span class="material-icons mr-1">check_circle</span>
+                验证此路障
+            </button>
+        </div>
+
+        <!-- 悬浮上报按钮 -->
+        <div class="fixed bottom-6 right-6">
+            <button class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center sketch-border hand-drawn-btn">
+                <span class="material-icons text-white text-3xl">add</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 路障上报弹窗 -->
+    <div id="reportModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg w-full max-w-md p-6 sketch-border">
+            <h2 class="text-3xl font-bold mb-4 text-center" style="color: #5e35b1;">上报新路障</h2>
+            
+            <!-- 路障照片预览 -->
+            <div class="h-48 bg-gray-200 mb-4 sketch-border flex items-center justify-center">
+                <div class="text-center">
+                    <span class="material-icons text-4xl">photo_camera</span>
+                    <p>自动拍摄的路障照片</p>
+                </div>
+            </div>
+            
+            <!-- 自动获取的信息 -->
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">location_on</span>
+                    <span>位置: 116.404, 39.915</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">access_time</span>
+                    <span>时间: 10:30</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">info</span>
+                    <span>类型: 施工围栏 (自动识别)</span>
+                </div>
+            </div>
+            
+            <button class="w-full py-3 bg-green-400 text-white text-xl hand-drawn-btn">
+                确认上报
+            </button>
+        </div>
+    </div>
+
+    <!-- 路障验证弹窗 -->
+    <div id="verifyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg w-full max-w-md p-6 sketch-border">
+            <h2 class="text-3xl font-bold mb-4 text-center" style="color: #5e35b1;">验证路障信息</h2>
+            
+            <!-- 路障照片 -->
+            <div class="h-48 bg-gray-200 mb-4 sketch-border flex items-center justify-center">
+                <span class="material-icons text-4xl">image</span>
+            </div>
+            
+            <!-- 路障详细信息 -->
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">location_on</span>
+                    <span>位置: 116.404, 39.915</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">access_time</span>
+                    <span>上报时间: 10:30</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">info</span>
+                    <span>类型: 施工围栏</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">person</span>
+                    <span>上报者: 用户1234</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="material-icons mr-2" style="color: #5e35b1;">verified_user</span>
+                    <span>已有3人验证</span>
+                </div>
+            </div>
+            
+            <div class="flex space-x-4">
+                <button class="flex-1 py-3 bg-red-400 text-white text-xl hand-drawn-btn flex items-center justify-center">
+                    <span class="material-icons mr-1">close</span>
+                    虚假上报
+                </button>
+                <button class="flex-1 py-3 bg-green-400 text-white text-xl hand-drawn-btn flex items-center justify-center">
+                    <span class="material-icons mr-1">check</span>
+                    确认有效
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单交互逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            // 打开上报弹窗
+            document.querySelector('.fixed.bottom-6.right-6 button').addEventListener('click', function() {
+                document.getElementById('reportModal').classList.remove('hidden');
+            });
+            
+            // 打开验证弹窗
+            document.querySelectorAll('button:contains("验证此路障")').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById('verifyModal').classList.remove('hidden');
+                });
+            });
+            
+            // 关闭弹窗
+            document.querySelectorAll('#reportModal, #verifyModal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
